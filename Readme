@@ -72,7 +72,7 @@ $SL
 DI<string> <int> <int> :!%
 $SE
 $SL
-        !%import image file; <file name> <width> <hight>
+       :!%import image file; <file name> <width> <hight>
 $SE
 $P
 Advanced Commands:
