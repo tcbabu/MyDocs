@@ -69,7 +69,10 @@ $SE
 $SL
 DL     :!%Draw line
 $SL
-DI<string> <int> <int> :!%import image file; <file name> <width> <hight>
+DI<string> <int> <int> :!%
+$SE
+$SL
+        !%import image file; <file name> <width> <hight>
 $SE
 $P
 Advanced Commands:
