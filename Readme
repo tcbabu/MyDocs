@@ -11,12 +11,12 @@ which is 210x297. All text processing commands start in a new line with
 the output will be in landscape mode with a maximum bottom page limit of 210.
 $SE
 
-$LE200
+$LE205
 $C3
 $f27
 $w12
-$h14
-$s19
+$h13
+$s18
 $o5
 $m90
 Basic Commands:
