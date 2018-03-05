@@ -1,164 +1,442 @@
-$m240
-$o40
-$f34
-$w16
-$h16
-$LE200
-$s22
-$SB
-'kgwrite' uses a coordinate system in (mm) suitable for A4size paper,
-which is 210x297. All text processing commands start in a new line with
-'$' as the first character. In case the text width crosses 210 then
-the output will be in landscape mode with a maximum bottom page limit of 210.
-Plese note that multiple parametrers are seperated by a space character.
+$f24
+$m180
+$o10
+$MC
+$SH3 l
+1. A NOTE ON ENCRIPTION
 $SE
 
-$C3
+$SH2 l
+1.1 Symmetric Key Encryption
+$SE
+
+$SP
+There is no confusion about encryption, it is a method of
+coding the text so that people who has unauthorized access to the text
+will not be able to comprehend the text (hopefully). Generally a secret
+code (string) is used to encrypt the text. A simple example is an
+'exclusive or' the text with the secret string. As we know we can just
+have an 'exclusive or' again on the converted string with the secret
+code to get back the original text. This is s very simple method of encryption
+and one can have more complex ones.
+It is to be noted that, if an encrypted message/text is
+send, the receiver should know the secrete code to decrypt the text.
+So there must be a way for the receiver to get the secret code.
+Anybody who have access to the secret code (string) can decode the
+encrypted text. People may even try a brute force method to arrive at the
+secrete code.  The risk of brute force attack can be reduced by
+frequently changing the secret code.
+$SE
+
+$SH2 l
+1.2 Public Key/Private key Encryption
+$SE
+
+$SP
+Since long people thought about a way of encryption method, with two
+keys, one for encrypting and another for decrypting, so that once
+encrypted with a key, you need the second key to decrypt it. In this
+scheme, one key can be distributed to all senders as public key and the
+second key, the private key, kept as secret by the receiver and it is
+not known to others. The present method to arrive at these keys pair is
+based on difficulty in arriving the integer factors of large integer
+numbers. Under this scheme there is no need for the sender to know
+the private key and knowledge of the public key will not help
+in decrypting the coded message. One disadvantage as of now is,it is more
+CPU intensive than the first method and generally used to authenticate
+the person and then arrive at a secrete string and communicate further.
+This is the scheme used in 'ssh'.
+$SE
+
+$SH2 l
+1.3 CA Certificates
+$SE
+
+$SP
+Since public-keys are distributed freely, it may be required
+to verify that it is really from the original supplier. CA certification
+is a method to that end, and known public keys are signed by well known
+agencies to build a confidence on the public keys.
+$SE
+
+$SH2 l
+1.4 Hashing
+$SE
+
+$SP
+Another concept related to this subject is hashing a file, though it is
+not encrypting. Hashing is a method to uniquely arrive at a string/code
+from a file. Though one can not get back a file from its hash, it can be
+used to check the integrity of a file. Different files always make
+different hash string and creating new hash string and comparing with
+a previous hash string can be used to check the integrity of a file.
+$SE
+
+$P
+$SH3 l
+2. ABOUT CONNECTING THROUGH SSH/SCP.
+$SE
+
+$SP
+To ssh/scp in batch mode (ie without password prompt), following
+steps are required.(This is only possible if the remote is configured
+to support this authentication.)
+
+$SL
+!%1. .ssh directory in $(HOME). It should not have write permission
+for others. ie it must be chmod 755
+$SE
+$l
+ie;
 $f27
-$w12
-$h13
-$s18
-$o5
-$m90
-Basic Commands:
-!z34(all in a newline starting with '$')
-$SL
-o<int> :!%left offset/margin in (mm)
-$SL
-m<int> :!%right end position in (mm)
-$SL
-h<int> :!%character height in points; default 12
-$SL
-w<int> :!%character width in points,  default 12
-$SL
-s<int> :!%line space in points; default is 24
-$SL
-l      :!%left justify
-$SL
-r      :!%right justify
-$SL
-c      :!%center
-$SL
-a      :!%adjust gap and fill the line
-$SL
-f<int> :!%select font no.
-$SL
-tc<int>:!%text color
-$SL
-U<int> :!%
-Start/stop under lining text <int> 1 to start;0 to stop
-$SE
-$o5
-$SL
+$tc01
+   cd ~
+   mkdir .ssh
+   chmod 755 .ssh
+$tc15
+$f24
 
-LE<int>:!%page limit in (mm) default 290
-$SL
-LS<int>:!%page start in (mm) default 22
-$SL
-A<int> :!%Advance in no of lines
-$SL
+Now under .ssh, run
 
-X      :!%Store current line position
-$SL
-Y      :!%return to stored position
-$SL
+$f27
+$tc01
+   ssh-keygen -t rsa
+$tc15
+$f24
 
-P      :!%force new page
+$SP
+It will prompt for passphrase, which can be empty, otherwise
+it will be prompted for at use also.
+Passphrase is a mechanism to encrypt the private key, so that
+even if somebody got access to it, the passphrase is needed
+to use it. The problem with it is that, it will create problem
+in automated mode, so may be avoided in such cases.
 $SE
 
+   It will create two files
+$o25
 $SL
-DL     :!%Draw line
-$SL
-DI<string> <int> <int> :!%
+   1. !%id_rsa  which is private key and should not be shared with others,
+other than extra ordinary situations. Only the owner should
+have permissions on this.
 $SE
-$o22
+      ie it must be !c01!f27'chmod 600 id_rsa'!c15!f24.
+$SL
+  2. !%id_rsa.pub the public key which can be shared with others
+but must have  only read permissions to others.
+$SE
+     ie !c01!f27'chmod 644 id_rsa.pub'!c15!f24
+$o10
+
+$SP
+  The third file of importance is 'authorized_keys' which also must
+only have read permissions for others.
+ie !c01!f27'chmod 644 authorized_keys'!c15!f24. This file is a collection of
+public keys of others who are allowed to login to the user/machine.
+One can certainly add own public key to this file so it is possible to
+ssh to own machine/account.
+$SE
+$l
+  ie !c01!f27'cat id_rsa.pub >> authorized_keys'.!c15!f24
+$SP
+  One can add  public keys of others/machines like this to allow logins
+from other users/machines to the account in the machine.
+Always remember about the permissions on the files.
+$SP
+  Forth file is known_hosts. Initially one can just touch it.
+It must also be !c01!f27' touch known_hosts;chmod 644 known_hosts'.!c15!f24
+'known_hosts' will get build up on making ssh to other
+user/machine.
+$SP
+  If one need access to an account in a machine he has to append his
+public key to the authorized_keys of that account and also need to copy
+the public key of that account to own authorized keys.
+$SE
+$l
+  Permissions of these files should be as mentioned.
+
+$P
+$SH3 l
+3. ABOUT USAGE OF GIT
+$SE
+
+$SH2 l
+3.1 General Description
+$SE
+$SP
+Git is a version control system which can have remote locations which
+can be used by others to get copy/clone of the repository.
+$SE
+$SP
+If you are just starting your first git repository you
+may need to issue the following setup.
+$SE
+
+$f27
+$tc01
+  git config --global user.name "Your user name"
+  git config --global user.emal "your email"
+$tc15
+$f24
+
+$SP
+If you need to create a git repository of a project/files, the following
+steps are the basic commands.
+$SE
+
+$o15
+$SL
+1. !%Either you create or new directory or an existing one with the required
+project related files.
+$SE
+$SL
+2. !%Go to the directory and issue
+!c01!f27git init!c15!f24
+$SL
+3. !%git got a concept of 'branches' to maintain different versions or
+stages of a project. The default branch is 'master'. There are ways
+to create new branches, delete branches, merge branches. With
+!c01!f27'git init'!c15!f24 one created by default the 'master' branch and by default moved to
+that branch.
+$SE
+$o25
 $SB
-import image file; <file name> <width> <height>
+    The next step is adding files and folders to the repository.
+!c01!f27'git add <file>/<folder> <file> ....' !c15!f24will add files/folders
+to the the current branch, ie to begin with 'master'.
+If everything needs to be added one can use;
+!c01!f27'git add .'!c15!f24
 $SE
-$o5
-
-Advanced Commands:
+$o15
 
 $SL
-
-SP     :!%start para; ends with a new line starting with $SE
-$SL
-SB     :!%similar to para, but with out offset
-$SE
-$SL
-SL     :!%List item end with new line with $SE
-multiple item can be added in similar way
-Starting characters can be used to decide list type
-and '!!%' can be used to align first line and separating
-the list symbol
-$SL
-ST<int>:!%start table <int> is table type
-$SL
-SA     :!%align the line with dots inserted; adjust to left-right
-margins. The character pair '||' are used for identifying dots
-position.
-$SL
-SO<int>:!%para offset
-$SL
-SH<int> <char> :!%Heading <int> heading Level
-Level 7 to 1 and <char> c,r,l for justification
-$SL
-SY<int>:!%Hyphenation <int> 1 or 0 for on/off; default off
-$SL
-
-SJ<int>:!%0 means no right justification for para, list etc; 1 default
-$SL
-SE     :!%end para list table block doted lines
-
-$SL
-MC     :!%Make contents page
+4. !%Adding alone is not sufficient, one need to commit it.
+ie , !c01!f27'git commit -a -m "<info string>"!c15!f24.
+'-a' flag is to commit all changes made to the files in the
+repository. If you don't do this the changes will not be
+reflected. If one has created new files/folders it will not
+be reflected in the repository unless it is explicitly added
+using !c01!f27' git add ...'!c15!f24 and the commit it using
+!c01!f27'git commit....'!c15!f24
 $SE
 
-$SL
-Hl<string> :!%string for top left
-$SL
-Hr<string> :!%string for top right
-$SL
-Hd<int>:!%draw top line 1 or 0 to draw or not
-$SL
-Bl<string> :!%string for bottom left
-$SL
-Br<string> :!%string for bottom right
-$SL
-Bd<int>:!%draw bottom line 1 or 0 to draw or not
-$SE
+$SB
+     The reverse of add is
+
+$l
+      !c01!f27'git rm <file> .... <file>'!c15!f24
 
 $SL
-
-Nn     :!%no page number
-$SL
-Na     :!%regular page numbers
-$SL
-Nr     :!%roman page numbers
-$SL
-NP<int>:!%offset for page no position in (mm);need to adjust page length accordingly
-$SL
-Ns     :!%Reset page number
-$SL
-No<int>:!%offset page no with <int>
-$SL
-NTl    :!%page no at top left
-$SL
-NTr    :!%page no at top right
-$SL
-NTm    :!%page no at top middle
-$SL
-NBl    :!%page no at bottom left
-$SL
-NBr    :!%page no at bottom right
-$SL
-NBm    :!%page no at bottom middle
-$SL
-Np<int>:!%0 switch off page number, top/bottom lines/strings
+5. !%One can create new branch using
+!c01!f27' git branch <branch name>'!c15!f24 and can be moved to desired branch
+using !c01!f27'git checkout <branch name>'!c15!f24.
 $SE
 
+$l
+   Currently active branch and other branches can be seen by;
+      !c01!f27'git branch'!c15!f24
+
 $SL
-GY<int>:!%line style
-$SL
-GW<int>:!%line width
+6. !%One can merge a branch to current branch using
+!c01!f27'git merge <branch name>'!c15!f24 . This will work if there
+are no conflicts, for examples if  branches modified
+same file and committed then a conflict will arise and it has to
+be resolved manually.
+The conflicts will be marked in the file and can be modified
+using an editor.
+Once conflicts are resolved manually, it can be committed
 $SE
+
+       !c01!f27'git commit -a -m "<commit message>"'!c15!f24
+
+$o25
+$SB
+      However two different branches modified different files, it is
+not a problem. Merging both to the master(or to any other branch)
+will include the modifications from both.
+$SE
+
+$l
+      eg.
+$f27
+$tc01
+           git checkout master
+           git merge branch1
+           git merge branch2
+
+$tc15
+$f24
+$SP
+      Now master will have both modifications in branch1 and branch2
+(provided they modify different files).
+$SE
+
+$SB
+      Similar to adding files is the case of removing files. However if a
+common file is removed from one branch and another branch
+keeps it (and may be modified also) can lead to conflicts
+on merging and has to be modified manually and then committed.
+$SE
+
+$o15
+$SL
+7. !%One can remove a branch by issuing;
+$SE
+
+$f27
+$tc01
+       'git branch -d < branch name> .....<branch name>'
+$tc15
+$f24
+$o25
+
+$SP
+      This will work only if branches to be deleted are merged with
+current branch.
+In case one needs to delete a branch unconditionally, issue;
+$SE
+$o15
+$f27
+$tc01
+        'git branch -D <branch-name>'
+$tc15
+$f24
+
+$SL
+8. !%git cloning
+$SE
+$SP
+     Cloning is making exact copy of a repository from a remote or
+another local repository.
+This is a way of collaborating work or can be even a branching out.
+It can be as issued as follows
+$SE
+
+$f27
+$tc01
+      'git clone <remote> <local_folder>'
+$tc15
+$f24
+       or
+$f27
+$tc01
+       'git clone <path to git repo> <local_folder>
+$tc15
+$f24
+
+$SP
+     Now the new user can modify the repo and commit it.
+Any stage original repo can get the modifications of the
+new repository by issuing;
+$SE
+
+       !c01!f27'git pull <new_repo>'!c15!f24
+$o25
+$SB
+     The modifications of the new repo will be fetched and merged
+with currently active branch of the original. However it
+there are conflicts manual modifications may be required.
+
+$SB
+     Another option just to check the modification of the new
+by the old is to fetch the new. ie;
+$l
+      !c01!f27'git fetch <new>'!c15!f24
+     and one can check the modifications by issuing
+       !c01!f27'git log -p HEAD..FETCH_HEAD'!c15!f24
+
+$o15
+$SL
+9. !%There is a concept of 'remote repository' which can be in the same
+machine, another machine in local network or a cloud repository.
+For transaction between local and remote one can use 'ssh' or 'https',
+which git decides using the url.
+One can have more than one remote repository.
+If the need is to create a 'remote' in local network (ie same
+machine or another machine in the local network) one may follow the
+steps below.
+$SE
+
+$o25
+$SL
+     a. !%Create a new account for git admin in that machine, it may
+an existing account also.
+$SE
+$SL
+     b. !%login in to that machine  and create a new folder with
+a meaningful name connecting the repository.
+$SE
+$SL
+     c. !%go to the new folder and issue;
+$SE
+         !c01!f27'git init --bare'!c15!f24
+$SL
+     d. !%One may create the 'ssh' setting as explained earlier so
+that batch ssh possible.
+$SE
+$SL
+     e. !%come back to the original machine and move to the
+git folder of interest. Make sure that one can ssh to
+the 'remote'.
+$SE
+        Now issue;
+          !c01!f27git remote add <remote_name> <remote_url>!c15!f24
+          eg.  !c01!f27git remote add origin git@192.168.1.20:myrepo!c15!f24
+                  or
+               !c01!f27git remote add gitorigin git@machine.name:myrepo!c15!f24
+        again issue;
+          !c01!f27git push -u <remote_name> master!c15!f24
+$SB
+        Cloud machines eg github.com, sourceforge.com etc provide
+web interface to create  a new account, set up ssh/https etc
+and initialize a new repository. Also they explain commands
+to be issued locally which are very much similar as above.
+$SE
+$SB
+        Any time the local version is modified, remote can be synced with
+local with push.
+$SE
+
+$SB
+        Others who need a copy of the repository can clone it.
+$SE
+
+        ie ; !c01!f27git clone <remote_url>!c15!f24
+
+$SB
+        if the remote is updated and local needs to sync with remote
+$SE
+
+           !c01!f27git pull <remote_url>!c15!f24
+$o10
+$SP
+One can check the remotes by issuing;
+$SE
+
+           !c01!f27'git remote -v show'!c15!f24
+
+$SP
+Though it is possible for different users (if allowed) to push their
+branches to a remote, it may also lead to conflicts. If such conflicts
+occure it  may need to be
+resolved  before pushing. This can be done by issuing a pull request, and care
+should be taken in such cases.
+$SE
+
+$SB
+These are basic set of commands and there are more commands and options.
+$SE
+
+$SH2 l
+3.2 A Case Study
+$SE
+   (to be written)
+$P
+$SH3 l
+4. ABOUT DOCKER
+$SE
+
+$SP
+   In a sense docker is a packing method like tar, rpm ,deb etc.
+$SE
+   (to be written)
