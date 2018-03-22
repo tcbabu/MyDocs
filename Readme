@@ -436,8 +436,8 @@ $SP
    As a case study an old project  'kgwrite' is used. Kgwrite is a word processor
 of the type nroff/troff or Tex. One inserts commands in the text to instruct
 the actions and the processed output is generated in Postscript (or any supported image format)
-which can be 
-converted to PDF using available tools (like ps2pdf). 
+which can be
+converted to PDF using available tools (like ps2pdf).
 There are many word processors available now and the relevance of
 'kgwrite' is arguable. However it still has some relevance in
 the generation of automated documents.
@@ -498,13 +498,13 @@ $SP
 User 'thara' had created a setup, so that 'thara' can login to 'abu'
 without password. By issuing the above command 'thara' had created a
 copy of 'kgwrite' from 'abu'. And by default 'thara's remote is 'abu'. In case
-it is needed to use github as the remote 'thara' could add that also as another 
-remote. 
+it is needed to use github as the remote 'thara' could add that also as another
+remote.
 $SE
 $SP
 By this example there are two remoted and to users. Ofcourse 'thara' could have
 cloned from 'babu' also. They can also make pull requests from each other, or they
-can always deal though a remote, buy both using pull/push requests from 
+can always deal though a remote, buy both using pull/push requests from
 a common remote.
 $SE
 $P
