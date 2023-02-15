@@ -116,7 +116,7 @@ in automated mode, so may be avoided in such cases.
 $SE
 
    It will create two files
-$o25
+$o22
 $SL
    1. !%id_rsa  which is private key and should not be shared with others,
 other than extra ordinary situations. Only the owner should
@@ -193,9 +193,15 @@ $SL
 1. !%Either you create a new directory or use an existing one with the required
 project related files.
 $SE
+$o15
 $SL
 2. !%Go to the directory and issue
+<<<<<<< HEAD
 $SP
+=======
+$o22
+$l
+>>>>>>> build
 !c01!f27git init!c15!f24
 $SP
 If it is a new project and you are at the starting point, you can also issue,
@@ -203,27 +209,40 @@ $SP
 !c01!f27git init <new folder>!c15!f24
 $SP
 It will create the <new folder> and initialise git.
+$o15
 $SL
 3. !%git got a concept of 'branches' to maintain different versions or
 stages of a project. The default branch is 'master' (actually you can change the name to one you like, if you really want). There are ways
 to create new branches, delete branches, merge branches. With
+<<<<<<< HEAD
 $SP
 !c01!f27'git init'!c15!f24
 $SP
 one created by default the 'master' branch and by default moved to
+=======
+$o22
+$SB
+!c01!f27'git init'!c15!f24
+$SB
+ one created by default the 'master' branch and by default moved to
+>>>>>>> build
 that branch. But at this state you may not be able to see the branch, util you add some thing to the
 branch and 'commit' it, say your empty 'Readme'. The 'add' and 'commit' are briefly explained below, so read on.
 $l
 
 $SE
-$o25
+$o22
 $SB
     The next step is adding files and folders to the repository.
 
 $SP
 $l
 !c01!f27'git add <file>/<folder> <file> ....' !c15!f24
+<<<<<<< HEAD
 $SP
+=======
+$l
+>>>>>>> build
 will add files/folders
 to the the current branch, ie to begin with the 'master'.
 If everything needs to be added one can as well use;
@@ -236,7 +255,12 @@ $o15
 
 $SL
 4. !%Adding alone is not sufficient, one need to commit it.
+<<<<<<< HEAD
 $SP
+=======
+$o22
+$l
+>>>>>>> build
 ie , !c01!f27'git commit -a -m "<info string>"!c15!f24.
 $SP
 '-a' flag is to commit all changes made to the files in the
@@ -244,24 +268,34 @@ repository. If you don't do this the changes will not be
 reflected. If one has created new files/folders it will not
 be reflected in the repository unless it is explicitly added
 using
+<<<<<<< HEAD
 $SP
 !c01!f27' git add ...'!c15!f24 and the commit it using
 $SP
+=======
+$o22
+$SB
+!c01!f27' git add ...'!c15!f24s
+$SB
+ and the commit it using
+$SB
+>>>>>>> build
 !c01!f27'git commit....'!c15!f24
+$SB
 This is because git got the concept of 'working directory', which may contain
 files and folder not added to the GIT, also it contains the modified or edited
 versions of files. If move to other branches (see below checkout), the working
 direcyory will again the same. So committing the changes, including add delete and
 changes will not be in the branch, but will only be in the working directory.
 So adding and committing is very important to preserve the changes you have done.
-$SP
+$SB
 Once you have committed, the working directory is updated and if you move to other
 branch (read below), the files and folders of that branch will only be seen, other than the
 working directory (which anyway get updated with the commit).
 $SP
 What if one want to make update to the parent branch also, you need to move to that the branch
 and 'merge' the new branch (read below, now move on).
-$SP
+$SB
 What if one need to totally do away with the changes  (other than files not included in git),
 one can mahe new branch and commit there and remove that branch ( removing branch is mentioned below).
 
@@ -272,29 +306,46 @@ $SE
 $SB
      The reverse of add is
 
+<<<<<<< HEAD
 $SP
+=======
+$SB
+>>>>>>> build
       !c01!f27'git rm <file> .... <file>'!c15!f24
 
+$o15
 $SL
 5. !%One can create new branch using
-$SP
+$o22
+$SB
 !c01!f27' git branch <branch name>'!c15!f24
+<<<<<<< HEAD
 $l
+=======
+$SB
+>>>>>>> build
  and can be moved to desired branch
 using
-$SP
+$SB
 !c01!f27'git checkout <branch name>'!c15!f24.
 $SE
 
+<<<<<<< HEAD
 $SP
+=======
+$SB
+>>>>>>> build
    Currently active branch and other branches can be seen by;
+$SB
       !c01!f27'git branch'!c15!f24
 
+$o15
 $SL
 6. !%One can merge a branch to current branch using
-$SP
+$o22
+$SB
 !c01!f27'git merge <branch name>'!c15!f24 .
-$SP
+$SB
  This will work if there
 are no conflicts, for examples if  branches modified
 same file and committed then a conflict will arise and it has to
@@ -303,17 +354,21 @@ The conflicts will be marked in the file and can be modified
 using an editor.
 Once conflicts are resolved manually, it can be committed
 $SE
+$o22
 
        !c01!f27'git commit -a -m "<commit message>"'!c15!f24
 
-$o25
 $SB
       However two different branches modified different files, it is
 not a problem. Merging both to the master(or to any other branch)
 will include the modifications from both.
 $SE
 
+<<<<<<< HEAD
 $SP
+=======
+$SB
+>>>>>>> build
       eg.
 $f27
 $tc01
@@ -345,9 +400,9 @@ $tc01
        'git branch -d < branch name> .....<branch name>'
 $tc15
 $f24
-$o25
+$o22
 
-$SP
+$SB
       This will work only if branches to be deleted are merged with
 current branch.
 In case one needs to delete a branch unconditionally, issue;
@@ -359,10 +414,12 @@ $tc01
 $tc15
 $f24
 
+$o15
 $SL
 8. !%git cloning
 $SE
-$SP
+$o22
+$SB
      Cloning is making exact copy of a repository from a remote or
 another local repository.
 This is a way of collaborating work or can be even a branching out.
@@ -381,14 +438,14 @@ $tc01
 $tc15
 $f24
 
-$SP
+$SB
      Now the new user can modify the repo and commit it.
 Any stage original repo can get the modifications of the
 new repository by issuing;
 $SE
 
        !c01!f27'git pull <new_repo>'!c15!f24
-$o25
+$o22
 $SB
      The modifications of the new repo will be fetched and merged
 with currently active branch of the original. However it
@@ -397,13 +454,19 @@ there are conflicts manual modifications may be required.
 $SB
      Another option just to check the modification of the new
 by the old is to fetch the new. ie;
+<<<<<<< HEAD
 $o25
 $SB
       !c01!f27'git fetch <new>'!c15!f24
 $So25
+=======
+$B
+      !c01!f27'git fetch <new>'!c15!f24
+>>>>>>> build
 $SB
      and one can check the modifications by issuing
        !c01!f27'git log -p HEAD..FETCH_HEAD'!c15!f24
+$l
 
 $o15
 $SL
@@ -417,7 +480,7 @@ machine or another machine in the local network) one may follow the
 steps below.
 $SE
 
-$o25
+$o22
 $SL
      a. !%Create a new account for git admin in that machine, it may
 an existing account also.
@@ -439,18 +502,20 @@ $SL
 git folder of interest. Make sure that one can ssh to
 the 'remote'.
 $SE
+$o30
+$SB
         Now issue;
-$SP
+$SB
           !c01!f27git remote add <remote_name> <remote_url>!c15!f24
-$SP
+$SB
           eg.  !c01!f27git remote add origin git@192.168.1.20:myrepo!c15!f24
-$SP
+$SB
                   or
-$SP
+$SB
                !c01!f27git remote add gitorigin git@machine.name:myrepo!c15!f24
-$SP
+$SB
         again issue;
-$SP
+$SB
           !c01!f27git push -u <remote_name> master!c15!f24
 $SB
         Cloud machines eg github.com, sourceforge.com etc provide
@@ -472,8 +537,12 @@ $SE
 $SB
         if the remote is updated and local needs to sync with remote
 $SE
+$SB
 
            !c01!f27git pull <remote_url>!c15!f24
+$l
+$l
+
 $o10
 $SP
 One can check the remotes by issuing;
@@ -489,7 +558,7 @@ resolved  before pushing. This can be done by issuing a pull request, and care
 should be taken in such cases.
 $SE
 
-$SB
+$SP
 These are basic set of commands and there are more commands and options.
 'github.com' and 'sourceforge' are two publicly available remote service.
 One can open account either of the rtemotes or both. They provide ways to set up
