@@ -83,6 +83,7 @@ steps are required.(This is only possible if the remote is configured
 to support this authentication.Also it is just one method and other
 methods also exist.)
 
+$o15
 $SL
 !%1. .ssh directory in $(HOME). It should not have write permission
 for others. ie it must be chmod 755
@@ -194,19 +195,22 @@ project related files.
 $SE
 $SL
 2. !%Go to the directory and issue
-$l
+$SP
 !c01!f27git init!c15!f24
-$l
+$SP
 If it is a new project and you are at the starting point, you can also issue,
-$l
+$SP
 !c01!f27git init <new folder>!c15!f24
-$l
+$SP
 It will create the <new folder> and initialise git.
 $SL
 3. !%git got a concept of 'branches' to maintain different versions or
 stages of a project. The default branch is 'master' (actually you can change the name to one you like, if you really want). There are ways
 to create new branches, delete branches, merge branches. With
-!c01!f27'git init'!c15!f24 one created by default the 'master' branch and by default moved to
+$SP
+!c01!f27'git init'!c15!f24
+$SP
+one created by default the 'master' branch and by default moved to
 that branch. But at this state you may not be able to see the branch, util you add some thing to the
 branch and 'commit' it, say your empty 'Readme'. The 'add' and 'commit' are briefly explained below, so read on.
 $l
@@ -215,32 +219,34 @@ $SE
 $o25
 $SB
     The next step is adding files and folders to the repository.
+
+$SP
 $l
 !c01!f27'git add <file>/<folder> <file> ....' !c15!f24
-$li
+$SP
 will add files/folders
 to the the current branch, ie to begin with the 'master'.
 If everything needs to be added one can as well use;
-$l
+$SP
 !c01!f27'git add .'!c15!f24
-$l
+$SP
 
 $SE
 $o15
 
 $SL
 4. !%Adding alone is not sufficient, one need to commit it.
-$l
+$SP
 ie , !c01!f27'git commit -a -m "<info string>"!c15!f24.
-$l
+$SP
 '-a' flag is to commit all changes made to the files in the
 repository. If you don't do this the changes will not be
 reflected. If one has created new files/folders it will not
 be reflected in the repository unless it is explicitly added
 using
-$l
+$SP
 !c01!f27' git add ...'!c15!f24 and the commit it using
-$l
+$SP
 !c01!f27'git commit....'!c15!f24
 This is because git got the concept of 'working directory', which may contain
 files and folder not added to the GIT, also it contains the modified or edited
@@ -266,21 +272,21 @@ $SE
 $SB
      The reverse of add is
 
-$l
+$SP
       !c01!f27'git rm <file> .... <file>'!c15!f24
 
 $SL
 5. !%One can create new branch using
 $SP
 !c01!f27' git branch <branch name>'!c15!f24
-$SP
+$l
  and can be moved to desired branch
 using
 $SP
 !c01!f27'git checkout <branch name>'!c15!f24.
 $SE
 
-$l
+$SP
    Currently active branch and other branches can be seen by;
       !c01!f27'git branch'!c15!f24
 
@@ -307,7 +313,7 @@ not a problem. Merging both to the master(or to any other branch)
 will include the modifications from both.
 $SE
 
-$l
+$SP
       eg.
 $f27
 $tc01
@@ -391,9 +397,11 @@ there are conflicts manual modifications may be required.
 $SB
      Another option just to check the modification of the new
 by the old is to fetch the new. ie;
-$l
+$o25
+$SB
       !c01!f27'git fetch <new>'!c15!f24
-$SP
+$So25
+$SB
      and one can check the modifications by issuing
        !c01!f27'git log -p HEAD..FETCH_HEAD'!c15!f24
 
@@ -420,7 +428,7 @@ a meaningful name connecting the repository.
 $SE
 $SL
      c. !%go to the new folder and issue;
-$SE
+$SB
          !c01!f27'git init !c15!f24
 $SL
      d. !%One may create the 'ssh' setting as explained earlier so
